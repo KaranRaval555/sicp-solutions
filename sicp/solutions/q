@@ -1,0 +1,30 @@
+#lang simply-scheme
+
+; WRITE MODULAR CODE FOR ITERATIVE PROCESSES
+
+; Ex 1.3
+
+(define product
+  (lambda (x y term next)
+    (if (> x y) 1
+        (* (term x) (product (next x) y term next)))))
+(define (product-iter x y next term acc)
+  (if (> x y) acc
+      (prodcut-iter (next x) y next term (* (term x) acc))))
+(define (inc x) (+ x 1))
+(define (identity n) n)
+(define (sq x) (* x x))
+(define (expr a) (* (/ (* 2 a)
+                       (- (* 2 a) 1))
+                    (/ (* 2 a)
+                       (+ (* 2 a) 1))))
+(define (pi n) (product 1.0 n expr inc))
+(define (fact n) (product 1 n identity inc))
+(fact 5)
+(pi 5)
+
+
+(define (filtered-accumulate a b null-value combine predicate? term next)
+    (if (> a b) null-value
+        (combine (if (predicate? a) (term a) null-value)
+         (filtered-accumulate (next a) b null-value combine predicate? term next))))
