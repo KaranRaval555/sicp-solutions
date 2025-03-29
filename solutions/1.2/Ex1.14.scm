@@ -1,5 +1,5 @@
 #lang sicp
-(#%require racket/trace)
+
 (define (count-change amount)
   (cc amount 5))
 
