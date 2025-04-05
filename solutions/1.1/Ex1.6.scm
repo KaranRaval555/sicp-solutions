@@ -12,8 +12,6 @@
           (sqrt-iter (improve guess x) x)))
 (define (sqrt x) (sqrt-iter 1.0 x))
 (sqrt 9)
-;When Alyssa attempts to use new-if to compute square roots
-;the procedure causes infinite recursion
-;and eventually runs out of memory due to stack overflow
-;since new-if isn't a special form it'll evaluate else-clause everytime
-;even if the predicate is true  
+
+; When Alyssa attempts to use new-if to compute square roots the procedure causes infinite recursion and eventually runs out of memory due to stack overflow
+; since new-if isn't a special form it'll evaluate else-clause everytime even if the predicate is true  

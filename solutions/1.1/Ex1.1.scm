@@ -24,8 +24,8 @@
 ; #f
 
 (if (and (> b a) (< b (* a b)))
-    b
-    a)
+  b
+  a)
 ; 4
 
 (cond ((= a 4) 6)

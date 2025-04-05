@@ -1,5 +1,4 @@
 #lang sicp
-(#%require racket/trace)
 
 (define (square x) (* x x))
 (define (smallest-divisor n)
@@ -10,11 +9,11 @@
         ((divides? test-divisor n)
          test-divisor)
         (else (find-divisor
-               n
-               (+ test-divisor 1)))))
+                n
+                (+ test-divisor 1)))))
 (define (divides? a b)
   (= (remainder b a) 0))
-(trace find-divisor)
+
 (smallest-divisor 199)   ; 199
 (smallest-divisor 1999)  ; 1999
 (smallest-divisor 19999) ; 7
