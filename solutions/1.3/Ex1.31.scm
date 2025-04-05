@@ -10,8 +10,8 @@
 (define (product a b term next res)
   (define (iter a res)
     (if (> a b)
-        res
-        (iter (next a) (* res (term a)))))
+      res
+      (iter (next a) (* res (term a)))))
   (iter a 1))
 
 (define (fact n)
