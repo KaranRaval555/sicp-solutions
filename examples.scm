@@ -76,17 +76,59 @@
 ; (define (pi-sum a b)
 ;   (if (> a b) 0
 ;     (+ (/ 1.0 (* a (+ a 2))) (pi-sum (+ a 4) b))))
-(define (sum term next a b ans)
-  (define (sum-iter a b ans)
-    (if (> a b) ans
-      (sum-iter (next a) b (+ ans (term a)))))
-  (sum-iter a b 0))
-(define (sum-cubes a b)
-  (sum cube inc a b))
-(sum-cubes 1 10)
-(define (sum-integers a b)
-  (sum identity inc a b))
-(sum-integers 1 10)
-(define (pi-sum a b)
-  (sum (lambda (x) (/ 1.0 (* x (+ x 2)))) (lambda (x) (+ x 4)) a b))
-(* 8 (pi-sum 1 1000))
+(define (average x y) (/ (+ x y) 2))
+(define (close-enough? x y) 
+  (< (abs (- x y)) 0.001))
+(define (search f neg-point pos-point)
+  (let ((midpoint 
+         (average neg-point pos-point)))
+    (if (close-enough? neg-point pos-point)
+        midpoint
+        (let ((test-value (f midpoint)))
+          (cond 
+           ((positive? test-value)
+            (search f neg-point midpoint))
+           ((negative? test-value)
+            (search f midpoint pos-point))
+           (else midpoint))))))
+(define (half-interval-method f a b)
+  (let ((a-value (f a))
+        (b-value (f b)))
+    (cond ((and (negative? a-value) 
+                (positive? b-value))
+           (search f a b))
+          ((and (negative? b-value) 
+                (positive? a-value))
+           (search f b a))
+          (else
+           (error "Values are not of 
+                   opposite sign" a b)))))
+
+(define tolerance 0.00001)
+(define (fixed-point f first-guess)
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2)) 
+       tolerance))
+  (define (try guess)
+    (let ((next (f guess)))
+      (display guess)
+      (newline)
+      (if (close-enough? guess next)
+          next
+          (try next))))
+  (try first-guess))
+
+(define (cont-frac n d k)
+  (define (helper i)
+    (if (= i k)
+      0
+      (/ (n i) (+ (d i) (helper (+ i 1))))))
+  (helper 1))
+(cont-frac (lambda (i) 1.0)
+           (lambda (i) 1.0)
+           10)
+
+(define (average-damp f)
+  (lambda (x)
+    (average x (f x))))
+

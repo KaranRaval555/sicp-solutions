@@ -1,5 +1,4 @@
 #lang sicp
-(#%require racket/trace)
 
 (define (square x) (* x x))
 (define (divides? n a) (= (remainder n a) 0))

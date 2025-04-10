@@ -1,8 +1,9 @@
 #lang sicp
-(#%require racket/trace)
+
 (define (f g) (g 2))
 (trace f)
 (f f)
 ; (f 2)
 ; (2 2)
-; it will throw an error since, f can only be applied to procedure
+; it will throw an error since 2 is not a function,
+; f can only be applied to procedure

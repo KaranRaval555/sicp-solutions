@@ -20,7 +20,7 @@
         (else false)))
 (fast-prime? 99 2)
 
-; Alyssa's simplified expmod function is mathematically valid, 
+; Alyssa's simplified expmod function is mathematically valid,
 ; but its not as efficient as original implementation as it computes the full exponentiation before
 ; applying the modulus operation which requires handling extremely large intermediate numbers
 ; The original expmod function's design, which performs the modulus operation at each step,
