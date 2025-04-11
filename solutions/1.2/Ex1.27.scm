@@ -1,4 +1,5 @@
 #lang sicp
+(#%require racket/trace)
 
 (define (square x) (* x x))
 (define (expmod base exp m)
@@ -11,21 +12,20 @@
           (remainder
             (* base (expmod base (- exp 1) m))
             m))))
+
 (define (fermat-test n)
   (define (try-it a)
     (= (expmod a n n) a))
   (try-it (+ 1 (random (- n 1)))))
 
-(define (fermat-all? n)
-  (define (iter a)
-    (or (>= a n)
-        (and (= (expmod a n n) a)
-             (iter (+ a 1)))))
-  (iter 1))
+(define (carmichael-number? n)
+  (define (fast-prime n a)
+    (cond ((= a 0) true)
+          ((fermat-test n a) (fast-prime n (- a 1)))
+          (else false)))
 
-(fermat-all? 561) => #t
-(fermat-all? 1105) => #t
-(fermat-all? 1729) => #t
-(fermat-all? 2465) => #t
-(fermat-all? 2821) => #t
-(fermat-all? 6601) => #t
+(map carmichael-number? '(561 1105 1729 2465 2821 6601)) ; Carmichael no's fool it,
+(map prime? '(561 1105 1729 2465 2821 6601))        ; but none of them are prime
+(trace expmod)
+(carmichael-number? 561)
+

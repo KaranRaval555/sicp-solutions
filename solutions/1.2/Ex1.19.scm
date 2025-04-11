@@ -1,4 +1,5 @@
-#lang sicp
+#lang racket
+
 (define (fib n)
   (fib-iter 1 0 0 1 n))
 (define (fib-iter a b p q count)
@@ -15,7 +16,13 @@
                         p
                         q
                         (- count 1)))))
-(fib 10)
+(define start-time (current-inexact-milliseconds))
+(fib 10000000)
+(define end-time (current-inexact-milliseconds))
+(define duration (- end-time start-time))
+
+(display (string-append "Time taken: " (number->string duration) " ms"))
+
 
 
 ;; Applying transformation T(p, q) to (a, b):
