@@ -10,8 +10,6 @@
 ; (apply-2-times apply-2-times) -> apply-4-times
 ; (apply-2-times apply-4-times) -> apply-16-times
 
-; 6 + 5 = 21
-
 ; its not 100% accurate to how function evolves,
 ; but its is pretty close to what is happening here.
 

@@ -1,5 +1,6 @@
 #lang sicp
 
+(define dx 0.1)
 (define (compose f g)
   (lambda (x)
     (f (g x))))
