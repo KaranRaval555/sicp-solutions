@@ -98,7 +98,7 @@
     (if (null? tup) 0
         (plus (car tup) (addtup (cdr tup))))))
 
-(define mul 
+(define mul
   (lambda (x y)
     (if (zero? y) 0
         (plus x (mul x (- y 1)))))) 
@@ -109,7 +109,7 @@
       ((and (null? tup1) (null? tup2)) '())
       ((null? tup1) (cons (car tup2) (tup+ tup1 (cdr tup2))))
       ((null? tup2) (cons (car tup1) (tup+ (cdr tup1) tup2)))
-      (else (cons (plus (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))
+      (else (cons (plus (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2))))))
 
 (define >
   (lambda (a b)
@@ -144,7 +144,7 @@
 
 (define pick
   (lambda (n l)
-    (if (zero? (sub n)) (car l)
+    (if (one? n) (car l)
         (pick (sub n) (cdr l)))))
 
 (define rempick
@@ -220,7 +220,7 @@
 
 (define member*
   (lambda (a l)
-    (cond 
+    (cond
       ((or (atom? l) (null? l)) #f)
       ((eqan? (car l) a) #t)
       (else (or (member* a (car l)) (member* a (cdr l)))))))
@@ -292,10 +292,10 @@
       ((member? (car s1) s2) (cons (car s1) (intersect (cdr s1) s2)))
       (else (intersect (cdr s1) s2)))))
 
-(define union
-  (lambda (s1 s2)
-    (if (null? s1) s2 
-        (cons (car s1) (union (cdr s1) s2)))))
+(define (combine s1 s2)
+    (if (null? s1) s2
+        (cons (car s1) (combine (cdr s1) s2))))
+(define (union s1 s2) (makeset (combine s1 s2)))
 
 (define intersect-all
   (lambda (l)
