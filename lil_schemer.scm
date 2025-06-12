@@ -1,4 +1,5 @@
 #lang simply-scheme
+
 (define (atom? l) (not (list? l)))
 (define lat?
   (lambda (l)
