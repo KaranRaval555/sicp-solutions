@@ -20,6 +20,7 @@
         (cons (car s1) (combine (cdr s1) s2))))
 (define (union s1 s2) (makeset (combine s1 s2)))
 
-(union '(stewed tomatoes and macaroni casserole) '(macaroni and cheese))
+(define (build s1 s2) (cons s1 (cons s2 '())))
+(build '(stewed tomatoes and macaroni casserole) '(macaroni and cheese))
 
-
+(build 'karan 'raval)
