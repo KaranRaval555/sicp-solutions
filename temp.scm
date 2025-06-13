@@ -1,26 +1,34 @@
 #lang sicp
 (#%require racket/trace)
 
-(define (atom? l) (not (list? l)))
-(define operators '(+ - * /))
+(define (scale-tree tree factor)
+  (cond ((null? tree) nil)
+        ((not (pair? tree)) 
+         (* tree factor))
+        (else
+         (cons (scale-tree (car tree) 
+                           factor)
+               (scale-tree (cdr tree) 
+                           factor)))))
 
-(define member?
-  (lambda (a l)
-    (if (null? l) #f 
-        (or (eq? (car l) a) (member? a (cdr l))))))
+(define (scale-tree tree factor)
+  (map (lambda (sub-tree)
+         (if (pair? sub-tree)
+             (scale-tree sub-tree factor)
+             (* sub-tree factor)))
+       tree))
 
-(define makeset
-  (lambda (s)
-    (cond
-      ((null? s) s)
-      ((member? (car s) (cdr s)) (makeset (cdr s)))
-      (else (cons (car s) (makeset (cdr s)))))))
-(define (combine s1 s2)
-    (if (null? s1) s2
-        (cons (car s1) (combine (cdr s1) s2))))
-(define (union s1 s2) (makeset (combine s1 s2)))
+(define (sq x) (* x x))
+(define (square-tree tree)
+  (cond
+    ((null? tree) nil)
+    ((not (pair? tree)) (square tree))
+    (else (cons (square-tree (car tree)) (square-tree (cdr tree))))))
 
-(define (build s1 s2) (cons s1 (cons s2 '())))
-(build '(stewed tomatoes and macaroni casserole) '(macaroni and cheese))
+(define (square-tree tree)
+  (map (lambda (sub-tree)
+         (if (pair? sub-tree)
+           (square-tree sub-tree)
+           (sq (sub-tree))))
+         tree))
 
-(build 'karan 'raval)
