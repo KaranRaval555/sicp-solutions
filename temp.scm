@@ -1,34 +1,16 @@
 #lang sicp
 (#%require racket/trace)
 
-(define (scale-tree tree factor)
-  (cond ((null? tree) nil)
-        ((not (pair? tree)) 
-         (* tree factor))
-        (else
-         (cons (scale-tree (car tree) 
-                           factor)
-               (scale-tree (cdr tree) 
-                           factor)))))
 
-(define (scale-tree tree factor)
-  (map (lambda (sub-tree)
-         (if (pair? sub-tree)
-             (scale-tree sub-tree factor)
-             (* sub-tree factor)))
-       tree))
-
-(define (sq x) (* x x))
-(define (square-tree tree)
-  (cond
-    ((null? tree) nil)
-    ((not (pair? tree)) (square tree))
-    (else (cons (square-tree (car tree)) (square-tree (cdr tree))))))
-
-(define (square-tree tree)
-  (map (lambda (sub-tree)
-         (if (pair? sub-tree)
-           (square-tree sub-tree)
-           (sq (sub-tree))))
-         tree))
-
+(define zero
+  (lambda (f)
+    (lambda (x) x)))
+(define one
+  (lambda (f)
+    (lambda (x) (f x))))
+(define two
+  (lambda (f)
+    (lambda (x) (f (f x)))))
+((zero inc) 0)
+((one inc) 0)
+((two inc) 0)
