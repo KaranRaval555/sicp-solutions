@@ -11,8 +11,8 @@
           (y-point (p2-rect rect)))))
 
 (define rect (make-rect (make-point 1 2) (make-point 6 5)))
-(perimeter rect) => 16
-(area rect) => 15
+(perimeter rect)
+(area rect)
 (define (perimeter rect)
   (* 2 (+ (width-rect rect) (height-rect rect))))
 (define (area rect)
