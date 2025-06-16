@@ -1,13 +1,4 @@
 #lang sicp
-(#%require racket/trace)
-
-;
-; (define (for-each proc terms)
-;   (cond ((not (null? terms))
-;          (proc (car terms))
-;          (for-each proc (cdr terms)))
-;         (else
-;           (newline))))
 
 (define (for-each proc terms)
   (cond
