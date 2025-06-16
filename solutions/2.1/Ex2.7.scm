@@ -1,5 +1,5 @@
 #lang sicp
 
 (define (make-interval a b) (cons a b))
-(define (upper-bound x) (car x))
-(define (lower-bound x) (cdr x))
+(define (lower-bound x) (car x))
+(define (upper-bound x) (cdr x))
