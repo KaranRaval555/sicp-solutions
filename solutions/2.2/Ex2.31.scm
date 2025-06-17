@@ -6,10 +6,10 @@
         (if (null? items) nil
           (cons (proc (car items)) (map proc (cdr items)))))
 
-(define (tree-map proc tree)
+(define (tree-map fn tree)
   (map (lambda (sub-tree)
-       (if (not (pair? sub-tree)) (proc sub-tree)
-         (tree-map proc sub-tree)))
+       (if (not (pair? sub-tree)) (fn sub-tree)
+         (tree-map fn sub-tree)))
        tree))
 
 (define (square-tree tree) 
