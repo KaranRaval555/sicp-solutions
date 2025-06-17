@@ -104,7 +104,21 @@
     (else (append (enumerate-tree (car tree)) (enumerate-tree (cdr tree))))))
 (enumerate-tree (list 1 (list 2 (list 3 4)) 5))
 
-(define (sum-odd-squares tree)
-  (accumulate + 0 (map square (filter odd? (enumerate-interval tree)))))
-(define (even-fibs n)
-  (accumulate cons nil (filter even? (map fib (enumerate-interval 0 n)))))
+(define (fib n)
+  (if (< n 2) n 
+    (+ (fib (- n 1)) (fib (- n 2)))))
+
+; (define (sum-odd-squares tree)
+;   (accumulate + 0 (map square (filter odd? (enumerate-tree tree)))))
+;
+; (define (even-fibs n)
+;   (accumulate cons nil (filter even? (map fib (enumerate-interval 0 n)))))
+
+(define (list-fib-squares n)
+  (accumulate cons nil (map square (map fib (enumerate-interval 0 n)))))
+(list-fib-squares 10)
+
+(define (product-of-squares-of-odd-elements sequence)
+  (accumulate * 1 (map square (filter odd? sequence))))
+(product-of-squares-of-odd-elements 
+ (list 1 2 3 4 5))
