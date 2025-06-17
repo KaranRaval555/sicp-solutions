@@ -1,5 +1,4 @@
 #lang sicp
-(#%require racket/trace)
 
 (define (reverse li)
   (define (iter old new)
@@ -11,6 +10,16 @@
     (if (or (null? old) (not (pair? old))) new
       (iter (cdr old) (cons (reverse (car old)) new))))
   (iter x '()))
+;
+(define (deep-reverse x)
+  (cond ((null? x) '())
+        ((not (pair? x))
+         (list x))
+        ((not (pair? (car x)))
+         (append (deep-reverse (cdr x)) (list (car x))))
+        (else
+          (append (deep-reverse (cdr x)) 
+                  (list (deep-reverse (car x)))))))
 (define x
   (list (list 1 2) (list 3 4)))
 
