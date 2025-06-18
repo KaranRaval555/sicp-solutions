@@ -1,37 +1,3 @@
 #lang sicp
 (#%require racket/trace)
 
-(define (fold-right op initial sequence)
-  (if (null? sequence) initial
-    (op (car sequence) (fold-right op initial (cdr sequence)))))
-
-(define (fold-left op initial sequence)
-  (define (iter result rest)
-    (if (null? rest)
-        result
-        (iter (op result (car rest))
-              (cdr rest))))
-  (iter initial sequence))
-
-
-(fold-right / 1 (list 1 2 3))
-; (fold-left  / 1 (list 1 2 3))
-; (fold-right list nil (list 1 2 3))
-; (fold-left  list nil (list 1 2 3))
-
-; Give a property that op should satisfy to guarantee that fold-right and fold-left will produce the same values for any sequence. 
-
-; For fold-left and fold-right to produce the same value on any sequence, op must satisfy the following two properties:
-; Commutative: (= (op x y) (op y x))
-; Associative: (= (op x (op y z)) (op (op x y) z))
-
-; (define (reverse sequence)
-;   (fold-right
-;    (lambda (x y) (append y (list x))) nil sequence))
-
-(define (reverse sequence)
-  (fold-left 
-   (lambda (x y) (cons y x)) nil sequence))
-(trace fold-right)
-(trace reverse)
-(reverse (list 1 2 3 4 5))
