@@ -1,5 +1,4 @@
 #lang sicp
-(#%require racket/trace)
 
 (car ''abracadabra)
 ; The above expression is  same as :

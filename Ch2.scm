@@ -155,3 +155,10 @@
   (filter (lambda (x) (not (equal? x item))) sequence))
 
 (permutations '(a b c))
+
+(define (memq item x)
+  (cond
+    ((null? x) false)
+    ((eq? (car x) item) x)
+    (else (memq item (cdr x)))))
+(memq 'apple '(x (apple sauce) y apple pear))
