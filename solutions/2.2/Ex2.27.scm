@@ -1,10 +1,5 @@
 #lang sicp
 
-(define (reverse li)
-  (define (iter old new)
-    (if (null? old) new
-      (iter (cdr old) (cons (car old) new))))
-  (iter li '()))
 (define (deep-reverse x)
   (define (iter old new)
     (if (or (null? old) (not (pair? old))) new
