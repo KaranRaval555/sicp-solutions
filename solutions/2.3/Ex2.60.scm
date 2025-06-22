@@ -11,13 +11,13 @@
 (define (adjoin-set x set) (cons x set))
 
 ; Same
-(define (intersection-set set1 set2)
+(define (intersection-set a b)
   (cond
-    ((or (null? set1) (null? set2)) '())
-    ((element-of-set? (car set1) set2)
-     (cons (car set1) (intersection-set (cdr set1) set2)))
-     (else (intersection-set (cdr set1) set2))))
+    ((or (null? a) (null? b)) '())
+    ((element-of-set? (car a) b)
+     (cons (car a) (intersection-set (cdr a) b)))
+     (else (intersection-set (cdr a) b))))
 
 ; No need to check element-of-set?
-(define (union-set set1 set2)
-  (append set1 set2))
+(define (union-set a b)
+  (append a b))

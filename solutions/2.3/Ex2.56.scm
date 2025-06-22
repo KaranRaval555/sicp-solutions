@@ -9,10 +9,10 @@
                    (deriv (augend exp) var)))
         ((product? exp)
          (make-sum
-          (make-product 
+          (make-product
            (multiplier exp)
            (deriv (multiplicand exp) var))
-          (make-product 
+          (make-product
            (deriv (multiplier exp) var)
            (multiplicand exp))))
         ((exponentiation? exp)
@@ -25,6 +25,8 @@
         (else (error "unknown expression 
                       type: DERIV" exp))))
 (define (variable? x) (symbol? x))
+(define (=number? exp num)
+  (and (number? exp) (= exp num)))
 
 (define (same-variable? v1 v2)
   (and (variable? v1)
@@ -35,9 +37,9 @@
 (define (make-product m1 m2) (list '* m1 m2))
 (define (make-exponenetiation b exp)
   (cond
-    ((= b 1) 1)
-    ((= exp 1) b)
-    ((= exp 0) 1)
+    ((=number? b 1) 1)
+    ((=number? exp 1) b)
+    ((=number? exp 0) 1)
     (else (list '** b exp))))
 
 (define (sum? x)
@@ -56,3 +58,4 @@
 (define (base x) (cadr x))
 (define (exponent x) (caddr x))
 
+(deriv '(** x 3) 'x)

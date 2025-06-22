@@ -45,4 +45,4 @@
 ; The first performs an in-order traversal and appends intermediate results (left to right), while the second performs a reverse in-order traversal and prepends elements to the result (right to left).
 
 ; 2.
-; The first procedure does linear work at each node, so it grows as Θ(nlogn)Θ(nlogn) for a balanced tree. The second procedure does constant work at each node, so it grows as Θ(n) for any tree whether balanced or not. The second procedure is more efficient.
+; The first procedure does linear work at each node, so it grows as Θ(nlogn) for a balanced tree. The second procedure does constant work at each node, so it grows as Θ(n) for any tree whether balanced or not. The second procedure is more efficient.

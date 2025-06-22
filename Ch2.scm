@@ -127,34 +127,34 @@
 (define (flatmap proc seq)
   (accumulate append '() (map proc seq)))
 
-(define (prime-sum? pair)
-  (prime? (+ (car pair) (cadr pair))))
+; (define (prime-sum? pair)
+;   (prime? (+ (car pair) (cadr pair))))
 
-(define (make-pair-sum pair)
-  (list (car pair) (cadr pair) (+ (car pair) (cadr pair))))
-
-(define (prime-sum-pairs n)
-  (map make-pair-sum
-       (filter prime-sum?
-               (flatmap (lambda (i)
-                          (map (lambda (j) (list i j))
-                               (enumerate-interval 1 (- i 1))))
-                        (enumerate-interval 1 n)))))
-
-(prime-sum-pairs 5)
-
-(define (permutations s)
-  (if (null? s)
-      (list '())
-      (flatmap (lambda (x)
-                 (map (lambda (p) (cons x p))
-                      (permutations (remove x s))))
-               s)))
-
-(define (remove item sequence)
-  (filter (lambda (x) (not (equal? x item))) sequence))
-
-(permutations '(a b c))
+; (define (make-pair-sum pair)
+;   (list (car pair) (cadr pair) (+ (car pair) (cadr pair))))
+;
+; (define (prime-sum-pairs n)
+;   (map make-pair-sum
+;        (filter prime-sum?
+;                (flatmap (lambda (i)
+;                           (map (lambda (j) (list i j))
+;                                (enumerate-interval 1 (- i 1))))
+;                         (enumerate-interval 1 n)))))
+;
+; (prime-sum-pairs 5)
+;
+; (define (permutations s)
+;   (if (null? s)
+;       (list '())
+;       (flatmap (lambda (x)
+;                  (map (lambda (p) (cons x p))
+;                       (permutations (remove x s))))
+;                s)))
+;
+; (define (remove item sequence)
+;   (filter (lambda (x) (not (equal? x item))) sequence))
+;
+; (permutations '(a b c))
 
 (define (memq item x)
   (cond
@@ -178,17 +178,33 @@
           (make-product 
            (deriv (multiplier exp) var)
            (multiplicand exp))))
-        (else (error "unknown expression 
+        (else (error "unknown expression
                       type: DERIV" exp))))
 (define (variable? x) (symbol? x))
+(define (=number? exp num)
+  (and (number? exp) (= exp num)))
 
 (define (same-variable? v1 v2)
   (and (variable? v1)
        (variable? v2)
        (eq? v1 v2)))
 
-(define (make-sum a1 a2) (list '+ a1 a2))
-(define (make-product m1 m2) (list '* m1 m2))
+(define (make-sum a1 a2)
+  (cond ((=number? a1 0) a2)
+        ((=number? a2 0) a1)
+        ((and (number? a1) (number? a2))
+         (+ a1 a2))
+        (else (list '+ a1 a2))))
+
+(define (make-product m1 m2)
+  (cond ((or (=number? m1 0) 
+             (=number? m2 0)) 
+         0)
+        ((=number? m1 1) m2)
+        ((=number? m2 1) m1)
+        ((and (number? m1) (number? m2))
+         (* m1 m2))
+        (else (list '* m1 m2))))
 
 (define (sum? x)
   (and (pair? x) (eq? (car x) '+)))
@@ -204,3 +220,4 @@
 (deriv '(+ x 3) 'x)
 (deriv '(* x y) 'x)
 (deriv '(* (* x y) (+ x 3)) 'x)
+
