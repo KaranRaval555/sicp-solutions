@@ -1,0 +1,2 @@
+
+; The encode-symbol procedure from Exercise 2.68 grows as O(1) in the best case, when taking the first left branch to a leaf, and O(n2) in the worst case, when visiting every non-leaf node. Assuming a tree as described in Exercise 2.71, it is O(n) for the most frequent symbol due to scanning the left branch’s symbols first, and O(n2) for the least frequent symbol as this is the worst case just described.
