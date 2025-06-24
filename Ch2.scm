@@ -295,5 +295,3 @@
        (encode-symbol (car message) 
                       tree)
        (encode (cdr message) tree))))
-
-
