@@ -18,8 +18,6 @@
 (fold-right list nil (list 1 2 3))
 (fold-left  list nil (list 1 2 3))
 
-; Give a property that op should satisfy to guarantee that fold-right and fold-left will produce the same values for any sequence. 
-
 ; For fold-left and fold-right to produce the same value on any sequence, op must satisfy the following two properties:
 ; Commutative: (= (op x y) (op y x))
 ; Associative: (= (op x (op y z)) (op (op x y) z))

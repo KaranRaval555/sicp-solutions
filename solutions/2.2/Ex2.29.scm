@@ -78,7 +78,7 @@
 
 
 ; If make-mobile and make-branch use cons instead of list, all we need to do is change the right-branch and branch-structure selectors because left-branch and branch-length already uses car:
-; hell yeah! now i can see how DATA ABSTRACTION makes our system flexible to changes
+; DATA ABSTRACTION preservers for us the flexibility to experiment with alternative representations
 
 ; (define make-mobile cons)
 ; (define make-branch cons)

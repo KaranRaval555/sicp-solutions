@@ -5,5 +5,5 @@
    (lambda (x y) (append y (list x))) nil sequence))
 
 (define (reverse sequence)
-  (fold-left 
+  (fold-left
    (lambda (x y) (cons y x)) nil sequence))
