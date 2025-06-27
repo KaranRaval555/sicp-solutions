@@ -8,7 +8,7 @@
   (cond ((> (square test-divisor) n) n)
         ((divides? test-divisor n) test-divisor)
         (else (find-divisor n (+ test-divisor 1)))))
-(define (divides? a b) (= (remainder b a) 0))
+(define (divides? f a b) (= (remainder b a) 0))
 (define (prime? n)
   (= n (smallest-divisor n)))
 ; (trace prime?)
@@ -48,7 +48,7 @@
 
 (define (start-prime-test n start-time)
   (if (prime? n)
-    (report-prime (- (runtime) 
+    (report-prime (- (runtime)
                      start-time))))
 
 (define (report-prime elapsed-time)
@@ -74,15 +74,15 @@
 ;   (if (> a b) 0
 ;     (+ (/ 1.0 (* a (+ a 2))) (pi-sum (+ a 4) b))))
 (define (average x y) (/ (+ x y) 2))
-(define (close-enough? x y) 
+(define (close-enough? x y)
   (< (abs (- x y)) 0.001))
 (define (search f neg-point pos-point)
-  (let ((midpoint 
+  (let ((midpoint
          (average neg-point pos-point)))
     (if (close-enough? neg-point pos-point)
         midpoint
         (let ((test-value (f midpoint)))
-          (cond 
+          (cond
            ((positive? test-value)
             (search f neg-point midpoint))
            ((negative? test-value)
@@ -91,20 +91,20 @@
 (define (half-interval-method f a b)
   (let ((a-value (f a))
         (b-value (f b)))
-    (cond ((and (negative? a-value) 
+    (cond ((and (negative? a-value)
                 (positive? b-value))
            (search f a b))
-          ((and (negative? b-value) 
+          ((and (negative? b-value)
                 (positive? a-value))
            (search f b a))
           (else
-           (error "Values are not of 
+           (error "Values are not of
                    opposite sign" a b)))))
 
 (define tolerance 0.00001)
 (define (fixed-point f first-guess)
   (define (close-enough? v1 v2)
-    (< (abs (- v1 v2)) 
+    (< (abs (- v1 v2))
        tolerance))
   (define (try guess)
     (let ((next (f guess)))
@@ -116,8 +116,8 @@
   (try first-guess))
 
 (define (sqrt x)
-  (fixed-point 
-   (average-damp 
+  (fixed-point
+   (average-damp
     (lambda (y) (/ x y)))
    1.0))
 
