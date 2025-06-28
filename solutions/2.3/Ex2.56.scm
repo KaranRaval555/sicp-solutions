@@ -58,4 +58,4 @@
 (define (base x) (cadr x))
 (define (exponent x) (caddr x))
 
-(deriv '(** x 3) 'x)
+(deriv '(* 3 (** x 5)) 'x)
