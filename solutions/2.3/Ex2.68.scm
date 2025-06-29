@@ -13,6 +13,3 @@
         ((element-of-set? symbol (symbols (right-branch tree)))
          (cons 1 (encode-symbol symbol (right-branch tree))))
         (else (error 'encode-symbol "symbol not in tree" symbol))))
-
-(encode sample-decoded sample-tree) => sample-message
-(encode '(Z) sample-tree) =!> "symbol not in tree: Z"
