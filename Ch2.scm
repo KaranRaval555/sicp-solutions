@@ -105,7 +105,7 @@
 (enumerate-tree (list 1 (list 2 (list 3 4)) 5))
 
 (define (fib n)
-  (if (< n 2) n
+  (if (< n 2) n 
     (+ (fib (- n 1)) (fib (- n 2)))))
 
 ; (define (sum-odd-squares tree)
@@ -120,7 +120,7 @@
 
 (define (product-of-squares-of-odd-elements sequence)
   (accumulate * 1 (map square (filter odd? sequence))))
-(product-of-squares-of-odd-elements
+(product-of-squares-of-odd-elements 
  (list 1 2 3 4 5))
 
 
@@ -197,8 +197,8 @@
         (else (list '+ a1 a2))))
 
 (define (make-product m1 m2)
-  (cond ((or (=number? m1 0)
-             (=number? m2 0))
+  (cond ((or (=number? m1 0) 
+             (=number? m2 0)) 
          0)
         ((=number? m1 1) m2)
         ((=number? m2 1) m1)
