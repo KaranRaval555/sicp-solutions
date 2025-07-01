@@ -14,4 +14,4 @@
             MAKE-FROM-REAL-IMAG" op))))
   dispatch)
 (define z (make-from-real-imag 3 4)) ; Object
-(z 'real-part) ; message
+(z 'real-part) ; message/method-name
