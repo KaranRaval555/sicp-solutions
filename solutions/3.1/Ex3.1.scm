@@ -1,5 +1,4 @@
 #lang sicp
-(#%require racket/trace)
 
 (define (accumulator n)
   (lambda (x)
