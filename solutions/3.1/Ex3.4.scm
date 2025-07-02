@@ -4,7 +4,7 @@
   (let ((count 0))
   (define (withdraw amount)
     (if (>= balance amount)
-        (begin 
+        (begin
           (set! balance (- balance amount))
           (set! count 0)
                balance)
