@@ -1,10 +1,13 @@
 #lang sicp
 (#%require racket/trace)
 
-(define (accumulator n)
-  (lambda (x)
-    (begin (set! n (+ x n)) n)))
-(define A (accumulator 5))
-(A 10)
-(A 10)
-
+; Closure : persistant local state variables
+(define (make-count)
+  (let ((result 0)) ; result is stored in closure
+    (lambda () (set! result (+ result 1)) result)))
+(define c1 (make-count))
+(define c2 (make-count))
+(c1)
+(c2)
+(c1)
+(c2)
