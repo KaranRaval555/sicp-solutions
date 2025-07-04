@@ -1,9 +1,10 @@
 #lang sicp
 
 (define f
-  ((lambda(old)
-     (lambda(x)
-       (let ((temp old))
-         (set! old x) temp))) 0))
+  ((lambda (prev)
+    (lambda (curr)
+      (let ((temp prev))
+        (set! prev curr)
+        temp))) 0))
 (+ (f 0) (f 1))
 (+ (f 1) (f 0))

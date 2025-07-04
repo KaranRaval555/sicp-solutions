@@ -1,5 +1,6 @@
 #lang sicp
 
+; These are church's implemention
 (define (cons x y)
   (lambda (m) (m x y)))
 
