@@ -138,7 +138,7 @@
         (add (quotient x y) y))))
 
 (define length
-  (lambda (l) 
+  (lambda (l)
     (if (null? l) 0
         (add (length (cdr l))))))
 
