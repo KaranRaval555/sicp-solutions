@@ -9,3 +9,4 @@
 (cdr b)
 a
 b
+(get-new-pair)
