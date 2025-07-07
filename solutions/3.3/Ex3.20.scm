@@ -9,7 +9,7 @@
           ((eq? m 'cdr) b)
           ((eq? m 'set-car!) set-x!)
           ((eq? m 'set-cdr!) set-y!)
-          (else (error "Undefined 
+          (else (error "Undefined
                  operation: CONS" m))))
   dispatch)
 (define (car z) (z 'car))
