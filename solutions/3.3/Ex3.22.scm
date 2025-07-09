@@ -3,16 +3,21 @@
 (define (make-queue)
   (let ((front-ptr '())
         (rear-ptr '()))
+
     (define (empty-queue?)
       (null? front-ptr))
+
     (define (front-queue)
       (if (empty-queue?)
           (error "FRONT called with an empty queue")
           (car front-ptr)))
+
     (define (set-front-ptr! index)
       (set! front-ptr index))
+
     (define (set-rear-ptr! index)
       (set! rear-ptr index))
+    
     (define (insert-queue! index)
       (define new-pair (cons index '()))
       (cond ((empty-queue?)
@@ -23,6 +28,7 @@
              (set-cdr! rear-ptr new-pair)
              (set-rear-ptr! new-pair)
              (cons front-ptr rear-ptr))))
+    
     (define (delete-queue!)
       (cond ((empty-queue?)
              (error "DELETE! called with an empty queue"))
