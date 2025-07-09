@@ -17,7 +17,7 @@
             (+ (memo-fib (- n 1))
                (memo-fib (- n 2))))))))
 
-where the memoizer is defined as
+; where the memoizer is defined as
 
 (define (memoize f)
   (let ((table (make-table)))
