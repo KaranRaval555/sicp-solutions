@@ -17,7 +17,7 @@
 
     (define (set-rear-ptr! index)
       (set! rear-ptr index))
-    
+
     (define (insert-queue! index)
       (define new-pair (cons index '()))
       (cond ((empty-queue?)
@@ -28,13 +28,14 @@
              (set-cdr! rear-ptr new-pair)
              (set-rear-ptr! new-pair)
              (cons front-ptr rear-ptr))))
-    
+
     (define (delete-queue!)
       (cond ((empty-queue?)
              (error "DELETE! called with an empty queue"))
             (else
              (set-front-ptr! (cdr front-ptr))
              (cons front-ptr rear-ptr))))
+
     (define (dispatch m)
       (cond ((eq? m 'insert-queue!) insert-queue!)
             ((eq? m 'delete-queue!) delete-queue!)
