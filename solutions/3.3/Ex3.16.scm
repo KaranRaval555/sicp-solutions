@@ -6,11 +6,12 @@
       (+ (count-pairs (car x))
          (count-pairs (cdr x))
          1)))
-(count-pairs '(1 2 3))
+(count-pairs '(1 2 3))  ; 3
 (define x (cons 1 '()))
 (define y (cons x x))
 (define z (cons y '()))
-(count-pairs z)
+(count-pairs z)         ; 4
 
 (define b (cons y y))
-(count-pairs b)
+(count-pairs b)         ; 7
+
