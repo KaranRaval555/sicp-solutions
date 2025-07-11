@@ -507,6 +507,5 @@
         (align (shift pora)))
       (else (build (first pora)
                      (align (second pora)))))))
-(trace align)
 (align '(((a) (b)) c))
 

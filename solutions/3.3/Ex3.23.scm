@@ -2,16 +2,13 @@
 
 ; I have implemented the deque as a doubly-linked list. This uses a three-part structure cdr of each item is a pair whose car points to the previous item and whose cdr points to the next.
 
-; Constructor
 (define (make-node val prev next)
   (list val prev next))
 
-; Selctors
 (define (val-node node) (car node))
 (define (prev-node node) (cadr node))
 (define (next-node node) (caddr node))
 
-; Mutators
 (define (set-val-node! node x)
   (set-car! node x))
 (define (set-prev-node! node x)
@@ -19,7 +16,6 @@
 (define (set-next-node! node x)
   (set-car! (cddr node) x))
 
-; Doubly-linked-list
 (define (make-deque)
   (let ((front-ptr '())
         (rear-ptr '()))

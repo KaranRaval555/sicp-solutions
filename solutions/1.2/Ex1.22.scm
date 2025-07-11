@@ -1,5 +1,4 @@
 #lang racket
-(#%require racket/trace)
 
 (define (square x) (* x x))
 (define (smallest-divisor n) (find-divisor n 2))

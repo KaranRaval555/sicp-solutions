@@ -1,5 +1,4 @@
 #lang sicp
-(#%require racket/trace)
 
 (define (cons a b)
   (define (set-x! v) (set! a v))

@@ -1,7 +1,6 @@
 #lang sicp
 
 (define (f g) (g 2))
-(trace f)
 (f f)
 ; (f 2)
 ; (2 2)

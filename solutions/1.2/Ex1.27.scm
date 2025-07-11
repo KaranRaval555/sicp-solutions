@@ -1,5 +1,4 @@
 #lang sicp
-(#%require racket/trace)
 
 (define (square x) (* x x))
 (define (expmod base exp m)
@@ -26,6 +25,5 @@
 
 (map carmichael-number? '(561 1105 1729 2465 2821 6601)) ; Carmichael no's fool it,
 (map prime? '(561 1105 1729 2465 2821 6601))        ; but none of them are prime
-(trace expmod)
 (carmichael-number? 561)
 
