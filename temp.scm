@@ -1,5 +1,11 @@
 #lang sicp
 
+(define (stream-car stream) 
+  (car stream))
+
+(define (stream-cdr stream) 
+  (force (cdr stream)))
+
 (define (stream-ref s n)
   (if (= n 0)
     (stream-car s)
@@ -26,3 +32,61 @@
 (define (display-line x)
   (newline)
   (display x))
+
+(define (stream-enumerate-interval low high)
+  (if (> low high)
+      the-empty-stream
+      (cons-stream
+       low
+       (stream-enumerate-interval (+ low 1)
+                                  high))))
+
+(define (stream-filter pred stream)
+  (cond ((stream-null? stream) 
+         the-empty-stream)
+        ((pred (stream-car stream))
+         (cons-stream 
+          (stream-car stream)
+          (stream-filter 
+           pred
+           (stream-cdr stream))))
+        (else (stream-filter 
+               pred 
+               (stream-cdr stream)))))
+
+
+(define (show x)
+  (display-line x)
+  x)
+
+(define x
+  (stream-map
+    show
+    (stream-enumerate-interval 0 15)))
+
+(stream-ref x 5)
+(stream-ref x 7)
+
+(define sum 0)
+
+(define (accum x)
+  (set! sum (+ x sum))
+  sum)
+
+(define seq 
+  (stream-map 
+   accum 
+   (stream-enumerate-interval 1 20)))
+
+(define y (stream-filter even? seq))
+
+(define (integers-starting-from n)
+  (cons-stream 
+   n (integers-starting-from (+ n 1))))
+(define integers (integers-starting-from 1))
+(define (divisible? x y) (= (remainder x y) 0))
+(define no-sevens
+  (stream-filter (lambda (x) 
+                   (not (divisible? x 7)))
+                 integers))
+(stream-ref no-sevens 100)
