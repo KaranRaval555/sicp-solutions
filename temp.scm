@@ -1,5 +1,10 @@
 #lang sicp
 
+(define delay (lambda () <exp>))
+(define (force delayed-object)
+  (delayed-object))
+(define (cons-stream a b)
+  (cons a (delay b))
 (define (stream-car stream) 
   (car stream))
 
