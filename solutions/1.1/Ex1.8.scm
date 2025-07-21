@@ -3,6 +3,7 @@
 (define (sq x) (* x x))
 (define (cb x) (* x x x))
 (define (average x y) (/ (+ x y) 2))
+
 (define (cube-root x) 
   (define (good-enough? y) (< (abs (- (cb y) x)) 0.000000001))
   (define (improve y) (/ (+ (/ x (sq y)) (* 2 y)) 3))
