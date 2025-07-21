@@ -1,6 +1,7 @@
 #lang sicp
 
 (define (square x) (* x x))
+
 (define (fast-expt base n) 
   (define (expt-iter base n result)
     (cond 
@@ -8,17 +9,20 @@
       ((even? n) (expt-iter (square base) (/ n 2) result))
       (else (expt-iter base (- n 1) (* result base)))))
   (expt-iter base n 1))
+
 (define (expmod base exp m)
   (remainder (expt base exp) m))
+
 (define (fermat-test n)
   (define (try-it a)
     (= (expmod a n n) a))
   (try-it (+ 1 (random (- n 1)))))
+
 (define (fast-prime? n times)
   (cond ((= times 0) true)
         ((fermat-test n) (fast-prime? n (- times 1)))
         (else false)))
-(fast-prime? 99 2)
+(fast-prime? 90599 2)
 
 ; Alyssa's simplified expmod function is mathematically valid,
 ; but its not as efficient as original implementation as it computes the full exponentiation before

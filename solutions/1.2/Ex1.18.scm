@@ -3,7 +3,6 @@
 (define (double n) (* n 2))
 (define (halve n) (/ n 2))
 
-;; Iterative process
 (define (mul a b)
   (define (mul-iter a b ans)
     (cond

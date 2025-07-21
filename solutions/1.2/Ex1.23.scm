@@ -6,6 +6,7 @@
   (if (= 2 n) 
     3 
     (+ n 2)))
+
 (define (smallest-divisor n) (find-divisor n 2))
 (define (find-divisor n test-divisor)
   (cond
