@@ -6,7 +6,7 @@
 
 (((double (double double)) inc) 5)
 
-;  think of double as apply-2-times
+; think of double as apply-2-times
 ; (apply-2-times apply-2-times) -> apply-4-times
 ; (apply-2-times apply-4-times) -> apply-16-times
 
