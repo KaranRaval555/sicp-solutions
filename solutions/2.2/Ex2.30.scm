@@ -15,8 +15,7 @@
   (map (lambda (sub-tree)
          (if (not (pair? sub-tree))
            (sq sub-tree)
-           (square-tree sub-tree)
-           ))
+           (square-tree sub-tree)))
        tree))
 
 (square-tree

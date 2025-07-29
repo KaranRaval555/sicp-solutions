@@ -5,7 +5,7 @@
     (if (or (null? old) (not (pair? old))) new
       (iter (cdr old) (cons (reverse (car old)) new))))
   (iter x '()))
-;
+
 (define (deep-reverse x)
   (cond ((null? x) '())
         ((not (pair? x))

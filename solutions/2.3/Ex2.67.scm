@@ -6,7 +6,7 @@
   (eq? (car object) 'leaf))
 (define (symbol-leaf x) (cadr x))
 (define (weight-leaf x) (caddr x))
-;
+
 (define (make-code-tree left right)
   (list left
         right
@@ -48,8 +48,6 @@
               (decode-1 (cdr bits)
                         next-branch)))))
   (decode-1 bits tree))
-
-
 
 (define sample-tree
   (make-code-tree

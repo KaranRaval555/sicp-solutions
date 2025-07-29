@@ -3,8 +3,8 @@
 (define (generate-huffman-tree pairs)
   (successive-merge (make-leaf-set pairs)))
 
-;; Find the two smallest weight things and replace them with a merged version
-;; of the two leafs
+; Find the two smallest weight things and replace them with a merged version
+; of the two leafs
 (define (successive-merge leaf-set)
   (if (empty? (cdr leaf-set))
       (car leaf-set)
@@ -12,3 +12,4 @@
        (adjoin-set (make-code-tree (car leaf-set)
                                    (cadr leaf-set))
                    (cddr leaf-set)))))
+(define abcd-tree (generate-huffman-tree '((A 5) (B 10) (C 2) (D 1))))
