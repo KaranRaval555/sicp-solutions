@@ -2,6 +2,7 @@
 
 (define (make-account balance pass)
   (let ((count 0))
+
   (define (withdraw amount)
     (if (>= balance amount)
         (begin
@@ -9,10 +10,12 @@
           (set! count 0)
                balance)
         "Insufficient funds"))
+
   (define (deposit amount)
     (set! balance (+ balance amount))
     (set! count 0)
     balance)
+
   (define (dispatch input-pass m)
     (cond
           ((> count 7) (lambda (_) "CALL THE COPS"))
