@@ -13,16 +13,16 @@
 ; setting the cdr of each pair to point to the previous pair instead of the next. For the very first pair, it sets the cdr to null.
 
 ; (define v (list 'a 'b 'c 'd))
-; ; v->[*|*]->[*|*]->[*|*]->[*|X]
-; ;     |      |      |      |
-; ;     V      V      V      V
-; ;     a      b      c      d
+; v->[*|*]->[*|*]->[*|*]->[*|X]
+;     |      |      |      |
+;     V      V      V      V
+;     a      b      c      d
 ;
 ; (define w (mystery v))
 ; v => '(a)
 ; w => '(d c b a)
-; ; v->[*|X]<-[*|*]<-[*|*]<-[*|*]<-w
-; ;     |      |      |      |
-; ;     V      V      V      V
-; ;     a      b      c      d
-; ; These box-and-pointer diagrams make it obvious that mystery simply changes the directions of all the arrows.
+; v->[*|X]<-[*|*]<-[*|*]<-[*|*]<-w
+;     |      |      |      |
+;     V      V      V      V
+;     a      b      c      d
+; These box-and-pointer diagrams make it obvious that mystery simply changes the directions of all the arrows.

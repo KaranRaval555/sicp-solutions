@@ -1,6 +1,6 @@
 #lang sicp
 
-; I have implemented the deque as a doubly-linked list. This uses a three-part structure cdr of each item is a pair whose car points to the previous item and whose cdr points to the next.
+;; Doubly linked list
 
 (define (make-node val prev next)
   (list val prev next))

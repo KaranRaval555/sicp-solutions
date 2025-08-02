@@ -7,6 +7,7 @@
          (count-pairs (cdr x))
          1)))
 (count-pairs '(1 2 3))  ; 3
+
 (define x (cons 1 '()))
 (define y (cons x x))
 (define z (cons y '()))
