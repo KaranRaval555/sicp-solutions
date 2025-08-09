@@ -8,9 +8,11 @@
                         amount))
                balance)
         "Insufficient funds"))
+
   (define (deposit amount)
     (set! balance (+ balance amount))
     balance)
+
   (define (dispatch m)
     (cond ((eq? m 'withdraw) withdraw)
           ((eq? m 'deposit) deposit)

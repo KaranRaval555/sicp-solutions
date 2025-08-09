@@ -15,8 +15,8 @@
 
 (fold-right / 1 (list 1 2 3))
 (fold-left  / 1 (list 1 2 3))
-(fold-right list nil (list 1 2 3))
-(fold-left  list nil (list 1 2 3))
+(fold-right cons nil (list 1 2 3))
+(fold-left  cons nil (list 1 2 3))
 
 ; For fold-left and fold-right to produce the same value on any sequence, op must satisfy the following two properties:
 ; Commutative: (= (op x y) (op y x))
