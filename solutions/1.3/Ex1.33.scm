@@ -18,4 +18,5 @@
   (define (rel-prime i)
     (= (gcd i n) 1))
   (filtered-accumulate 1 n * rel-prime identity inc 1))
+
 (product-rel-prime 10)

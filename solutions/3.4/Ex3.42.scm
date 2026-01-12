@@ -30,4 +30,9 @@
                       m))))
       dispatch)))
 
-; This is a safe change to make. Each bank account still has one serializer and the deposit and withdraw procedures returned from the dispatcher are always protected by it. It makes no difference in what concurrency is allowed. The let expression will create extra frame in environment model but other than that they are the same.
+; This is a safe change to make. 
+; Each bank account still has one serializer and the deposit and withdraw procedures 
+; returned from the dispatcher are always protected by it. 
+; It makes no difference in what concurrency is allowed. 
+; The let expression will create extra frame in environment model but 
+; other than that they are the same.

@@ -1,6 +1,7 @@
 #lang sicp
 
 (define (sq x) (* x x))
+
 (define (two-largest-sum-of-sq a b c)
   (cond
     ((and (>= a c) (>= b c)) (+ (sq a) (sq b)))

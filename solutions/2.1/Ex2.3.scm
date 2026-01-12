@@ -1,5 +1,9 @@
 #lang sicp
 
+(define (make-point x y) (cons x y))
+(define (x-point p) (car p))
+(define (y-point p) (cdr p))
+
 (define make-rect cons)
 (define p1-rect car)
 (define p2-rect cdr)

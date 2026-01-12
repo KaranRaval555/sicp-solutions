@@ -1,6 +1,7 @@
 #lang sicp
 
 (define (square x) (* x x))
+
 (define (smallest-divisor n)
   (find-divisor n 2))
 

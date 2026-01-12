@@ -18,7 +18,7 @@
 
   (define (dispatch input-pass m)
     (cond
-          ((> count 7) (lambda (_) "CALL THE COPS"))
+          ((> count 7) (lambda (_) "Internal Error: Transanction Failed"))
           ((not (eq? input-pass pass)) (lambda (_) (begin (set! count (+ count 1)) "Incorrect password")))
           ((eq? m 'withdraw) withdraw)
           ((eq? m 'deposit) deposit)

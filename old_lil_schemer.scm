@@ -1,242 +1,259 @@
-#lang sicp
-(#%require racket/trace)
+#lang simply-scheme
 
-(define (atom? x) (not (list? x)))
+(define (atom? l) (not (list? l)))
+(define lat?
+  (lambda (l)
+    (cond ((null? l) #t)
+          ((not (atom? (car l))) #f)
+          (else (lat? (cdr l))))))
 
-(define (lat? l)
-  (if 
-    (null? l) #t
-    (and (atom? (car l)) (lat? (cdr l)))))
+(define member?
+  (lambda (a l)
+    (if (null? l) #f 
+        (or (eq? (car l) a) (member? a (cdr l))))))
 
-(define (member? a l) 
-  (if
-    (null? l) #f
-    (or (eq? (car l) a) (member? a (cdr l)))))
+(define rember
+  (lambda (a l)
+    (cond
+      ((null? l) l)
+      ((eq? (car l) a) (cdr l))
+      (else (cons (car l) (rember a (cdr l)))))))
 
-(define (rember a l)
-  (cond 
-    ((null? l) '())
-    ((eq? a (car l)) (cdr l))
-    (else (cons (car l) (rember a (cdr l))))))
+(define firsts
+  (lambda (l)
+    (if (null? l) l
+        (cons (car (car l)) (firsts (cdr l))))))
 
-(define (firsts l)
-  (if (null? l) l
-    (cons (car (car l)) (firsts (cdr l)))))
+(define insertR
+  (lambda (new old l)
+    (cond
+      ((null? l) l)
+      ((eq? old (car l)) (cons old (cons new (cdr l))))
+      (else (cons (car l) (insertR new old (cdr l)))))))
 
-(define (seconds l)
-  (if (null? l) l
-    (cons (car (cdr (car l))) (seconds (cdr l)))))
+(define insertL
+  (lambda (new old l)
+    (cond
+      ((null? l) l)
+      ((eq? (car l) old) (cons new (cons old (cdr l))))
+      (else (cons (car l) (insertL new old (cdr l)))))))
 
-(define (insertL new old l)
-  (cond 
-    ((null? l) '())
-    ((eq? old (car l)) (cons new (cons old (cdr l))))
-    (else (cons (car l) (insertL new old (cdr l))))))
+(define subst1
+  (lambda (new old l)
+    (cond
+      ((null? l) l)
+      ((eq? (car l) old) (cons new (cdr l)))
+      (else (cons (car l) (subst1 new old (cdr l)))))))
 
-(define (insertR new old l)
-  (cond 
-    ((null? l) '())
-    ((eq? old (car l)) (cons old (cons new (cdr l))))
-    (else (cons (car l) (insertR new old (cdr l))))))
+(define subst2
+  (lambda (new o1 o2 l)
+    (cond
+      ((null? l) l)
+      ((or (eq? (car l) o1) (eq? (car l) o2)) (cons new (cdr l)))
+      (else (cons (car l) (subst2 new o1 o2 (cdr l)))))))
 
-(define (subst1 new old l)
-  (cond 
-    ((null? l) '())
-    ((eq? old (car l)) (cons new (cdr l)))
-    (else (cons (car l) (subst1 new old (cdr l))))))
+(define multirember
+  (lambda (a l)
+    (cond
+      ((null? l) l)
+      ((eq? (car l) a) (multirember a (cdr l)))
+      (else (cons (car l) (multirember a (cdr l)))))))
 
-(define (subst2 new o1 o2 l)
-  (cond 
-    ((null? l) '())
-    ((or (eq? o1 (car l)) (eq? o2 (car l))) (cons new (cdr l)))
-    (else (cons (car l) (subst2 new o1 o2 (cdr l))))))
+(define multiinsertR
+  (lambda (new old l)
+    (cond
+      ((null? l) l)
+      ((eq? old (car l)) (cons old (cons new (multiinsertR new old (cdr l)))))
+      (else (cons (car l) (multiinsertR new old (cdr l)))))))
 
-(define (multirember a l)
-  (cond 
-    ((null? l) '())
-    ((eq? a (car l)) (multirember a (cdr l)))
-    (else (cons (car l) (multirember a (cdr l))))))
+(define multiinsertL
+  (lambda (new old l)
+    (cond
+      ((null? l) l)
+      ((eq? old (car l)) (cons new (cons old (multiinsertL new old (cdr l)))))
+      (else (cons (car l) (multiinsertL new old (cdr l)))))))
 
-(define (multiinsertL new old l)
-  (cond 
-    ((null? l) '())
-    ((eq? old (car l)) (cons new (cons old (multiinsertL new old (cdr l)))))
-    (else (cons (car l) (multiinsertL new old (cdr l))))))
-
-(define (multiinsertR new old l)
-  (cond 
-    ((null? l) '())
-    ((eq? old (car l)) (cons old (cons new (multiinsertR new old (cdr l)))))
-    (else (cons (car l) (multiinsertR new old (cdr l))))))
-
-(define (multisubst new old l)
-  (cond 
-    ((null? l) '())
-    ((eq? old (car l)) (cons new (multisubst new old (cdr l))))
-    (else (cons (car l) (multisubst new old (cdr l))))))
+(define multisubst
+  (lambda (new old l)
+    (cond
+      ((null? l) l)
+      ((eq? (car l) old) (cons new (multisubst new old (cdr l))))
+      (else (cons (car l) (multisubst new old (cdr l)))))))
 
 (define (add x) (+ x 1))
 (define (sub x) (- x 1))
 
-(define (plus x y)
-  (if
-    (zero? y) x
-    (plus (add x) (sub y))))
+(define plus
+  (lambda (x y)
+    (if (zero? y) x
+        (plus (add x) (sub y)))))
 
-(define (minus x y)
-  (if
-    (zero? y) x
-    (minus (sub x) (sub y))))
+(define minus
+  (lambda (x y)
+    (if (zero? y) x
+        (minus (sub x) (sub y)))))
 
-(define (addtup tup)
-  (if
-    (null? tup) 0
-    (plus (car tup) (addtup (cdr tup)))))
+(define addtup
+  (lambda (tup)
+    (if (null? tup) 0
+        (plus (car tup) (addtup (cdr tup))))))
 
-(define (mul x y)
-  (if
-    (zero? y) 0
-    (plus x (mul x (sub y)))))
+(define mul
+  (lambda (x y)
+    (if (zero? y) 0
+        (plus x (mul x (- y 1)))))) 
 
-(define (tup+ x y)
-  (cond 
-    ((and (null? x) (null? y)) '())
-    ((null? x) y)
-    ((null? y) x)
-    (else (cons (plus (car x) (car y)) (tup+ (cdr x) (cdr y))))))
+(define tup+
+  (lambda (tup1 tup2)
+    (cond 
+      ((and (null? tup1) (null? tup2)) '())
+      ((null? tup1) (cons (car tup2) (tup+ tup1 (cdr tup2))))
+      ((null? tup2) (cons (car tup1) (tup+ (cdr tup1) tup2)))
+      (else (cons (plus (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2))))))
 
-(define (> a b)
-  (cond
-    ((zero? b) #t)
-    ((or (zero? a) (= a b)) #f)
-    (else (> (sub a) (sub b)))))
+(define >
+  (lambda (a b)
+    (cond 
+      ((zero? b) #t)
+      ((or (zero? a) (= a b)) #f)
+      (else (> (sub a) (sub b))))))
 
-(define (< a b)
-  (cond
-    ((zero? a) #t)
-    ((or (zero? b) (= a b)) #f)
-    (else (< (sub a) (sub b)))))
+(define <
+  (lambda (a b)
+    (cond 
+      ((zero? a) #t)
+      ((or (zero? b) (= a b)) #f)
+      (else (< (sub a) (sub b))))))
 
-(define (= a b)
-  (cond
-    ((and (zero? a) (zero? b)) #t)
-    ((or (zero? a) (zero? b)) #f)
-    (else (= (sub a) (sub b)))))
+(define (sq x) (* x x))
 
-(define (sq x) (mul x x))
+(define expt
+  (lambda (x y)
+    (if (zero? y) 1
+        (mul x (expt x (sub y))))))
+
+(define quotient
+  (lambda (x y)
+    (if (< x y) 0
+        (add (quotient x y) y))))
+
+(define length
+  (lambda (l)
+    (if (null? l) 0
+        (add (length (cdr l))))))
+
+(define pick
+  (lambda (n l)
+    (if (one? n) (car l)
+        (pick (sub n) (cdr l)))))
+
+(define rempick
+  (lambda (n l)
+    (if (one? n) (cdr l)
+        (cons (car l) (rempick (sub n) (cdr l))))))
+
+(define no-nums
+  (lambda (l)
+    (cond
+      ((null? l) l)
+      ((number? (car l)) (no-nums (cdr l)))
+      (else (cons (car l) (no-nums (cdr l)))))))
+
+(define all-nums
+  (lambda (l)
+    (cond
+      ((null? l) l)
+      ((not (number? (car l))) (all-nums (cdr l)))
+      (else (cons (car l) (all-nums (cdr l)))))))
+
+(define eqan?
+  (lambda (x y)
+    (cond
+      ((and (number? x) (number? y)) (= x y))
+      ((or (number? x) (number? y)) (eq? x y))
+      (else (eq? x y)))))
+
+(define occur
+  (lambda (a lat)
+    (cond
+      ((null? lat) 0)
+      ((eqan? a (car lat)) (add (occur a (cdr lat))))
+      (else (occur a (cdr lat))))))
 
 (define (one? x) (= x 1))
 
-(define (expt b n)
-  (if
-    (zero? n) 1
-    (mul b (expt b (sub n)))))
+(define rember*
+  (lambda (a l)
+    (cond
+      ((or (atom? l) (null? l)) l)
+      ((eq? (car l) a) (rember* a (cdr l)))
+      (else (cons (rember* a (car l)) (rember* a (cdr l)))))))
 
-(define (quotient x y)
-  (if
-    (< x y) 0
-    (add (quotient (- x y) y))))
+(define insertL*
+  (lambda (new old l)
+    (cond
+      ((or (atom? l) (null? l)) l)
+      ((eq? old (car l)) (cons new (cons old (insertL* new old (cdr l)))))
+      (else (cons (insertL* new old (car l)) (insertL* new old (cdr l)))))))
 
-(define (length l)
-  (if
-    (null? l) 0
-    (add (length (cdr l)))))
+(define insertR*
+  (lambda (new old l)
+    (cond
+      ((or (atom? l) (null? l)) l)
+      ((eq? old (car l)) (cons old (cons new (insertR* new old (cdr l)))))
+      (else (cons (insertR* new old (car l)) (insertR* new old (cdr l)))))))
 
-(define (pick n l)
-  (if
-    (one? n) (car l)
-    (pick (sub n) (cdr l))))
+(define occur*
+  (lambda (a lat)
+    (cond
+      ((null? lat) 0)
+      ((atom? (car lat)) 
+       (if (eqan? a (car lat)) (add (occur* a (cdr lat))) (occur* a (cdr lat))))
+      (else (plus (occur* a (car lat)) (occur* a (cdr lat)))))))
 
-(define (rempick n l)
-  (if 
-    (one? n) (cdr l)
-    (cons (car l) (rempick (sub n) (cdr l)))))
+(define subst*
+  (lambda (new old l)
+    (cond
+      ((or (atom? l) (null? l)) l)
+      ((eq? old (car l)) (cons new (subst* new old (cdr l))))
+      (else (cons (subst* new old (car l)) (subst* new old (cdr l)))))))
 
-(define (no-nums l)
-  (cond 
-    ((null? l) '())
-    ((not (number? (car l))) (cons (car l) (no-nums (cdr l))))
-    (else (no-nums (cdr l)))))
+(define member*
+  (lambda (a l)
+    (cond
+      ((or (atom? l) (null? l)) #f)
+      ((eqan? (car l) a) #t)
+      (else (or (member* a (car l)) (member* a (cdr l)))))))
 
-(define (all-nums l)
-  (cond
-    ((null? l) '())
-    ((number? (car l)) (cons (car l) (all-nums (cdr l))))
-    (else (all-nums (cdr l)))))
+(define leftmost
+  (lambda (l)
+    (if
+     (atom? (car l)) (car l)
+     (leftmost (car l)))))
 
-(define (eqan? a1 a2)
-  (cond
-    ((and (number? a1) (number? a2)) (= a1 a2))
-    ((or (null? a1) (null? a2)) #f)
-    (else (eq? a1 a2))))
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((or (null? l1) (null? l2)) #f)
+      (else (and (equal? (car l1) (car l2)) (eqlist? (cdr l1) (cdr l2)))))))
 
-(define (occur a lat)
-  (cond
-    ((null? lat) 0)
-    ((eqan? a (car lat)) (add (occur a (cdr lat))))
-    (else (occur a (cdr lat)))))
-
-(define (rember* a l)
-  (cond
-    ((or (atom? l) (null? l)) l)
-    ((eqan? a (car l)) (rember* a (cdr l)))
-    (else (cons (rember* a (car l)) (rember* a (cdr l))))))
-
-(define (insertL* new old l)
-  (cond
-    ((or (atom? l) (null? l)) l)
-    ((eqan? old (car l)) (cons new (cons old (insertL* new old (cdr l)))))
-    (else (cons (insertL* new old (car l)) (insertL* new old (cdr l))))))
-
-(define (insertR* new old l)
-  (cond
-    ((or (atom? l) (null? l)) l)
-    ((eqan? old (car l)) (cons old (cons new (insertR* new old (cdr l)))))
-    (else (cons (insertR* new old (car l)) (insertR* new old (cdr l))))))
-
-(define (occur* a l)
-  (cond
-    ((or (null? l) (atom? l)) 0)
-    ((eqan? a (car l)) (add (occur* a (cdr l))))
-    (else (plus (occur* a (car l)) (occur* a (cdr l))))))
-
-(define (subst* new old l)
-  (cond
-    ((or (null? l) (atom? l)) l)
-    ((eqan? old (car l)) (cons new (subst* new old (cdr l))))
-    (else (cons (subst* new old (car l)) (subst* new old (cdr l))))))
-
-(define (member* a l)
-  (cond
-    ((or (null? l) (atom? l)) #f)
-    ((eqan? (car l) a) #t)
-    (else (or (member* a (car l)) (member* a (cdr l))))))
-
-(define (leftmost l)
-  (if (atom? (car l)) (car l)
-    (leftmost (car l))))
-
-(define (eqlist? l1 l2)
-  (cond 
-    ((and (null? l1) (null? l2)) #t) 
-    ((or (null? l1) (null? l2)) #f)
-    (else (and (equal? (car l1) (car l2)) (eqlist? (cdr l1) (cdr l2))))))
-
-(define (equal? s1 s2)
-  (cond 
-    ((and (atom? s1) (atom? s2)) (eqan? s1 s2))
-    ((or (atom? s1) (atom? s2)) #f)
-    (else (eqlist? s1 s2))))
-
+(define equal?
+  (lambda (s1 s2)
+    (cond
+      ((and (atom? s1) (atom? s2)) (eq? s1 s2))
+      ((or (atom? s1) (atom? s2)) #f)
+      (else (eqlist? s1 s2)))))
 
 (define operators '(+ - * /))
 
-(define (numbered? x)
-  (cond
-    ((or (number? x) (null? x)) #t)
-    ((list? (car x)) (numbered? (car x)))
-    ((or (number? (car x)) (member? (car x) operators)) (numbered? (cdr x)))
-    (else #f)))
+(define numbered?
+  (lambda (x)
+    (cond
+      ((or (number? x) (null? x)) #t)
+      ((list? (car x)) (numbered? (car x)))
+      ((or (number? (car x)) (member? (car x) operators)) (numbered? (cdr x)))
+      (else #f))))
 
 (define set?
   (lambda (s)
@@ -278,7 +295,6 @@
 (define (combine s1 s2)
     (if (null? s1) s2
         (cons (car s1) (combine (cdr s1) s2))))
-
 (define (union s1 s2) (makeset (combine s1 s2)))
 
 (define intersect-all
@@ -302,7 +318,7 @@
     (if (null? rel) rel
         (cons (build (second (car rel)) (first (car rel))) (revrel (cdr rel))))))
 
-(define (fullfun? l) (fun? (seconds l)))
+(define (fullfun? l) (and (fun? l)) (fun? (revrel l)))
 
 (define eq-c?
   (lambda (a)

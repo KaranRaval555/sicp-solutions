@@ -10,9 +10,12 @@ guess       = 0 10000010100 10101100111010010100111010100001011011000110100111**
 (\ x guess) = 0 10000010100 10101100111010010100111010100001011011000110100111**01** (3513641.8288200633)
 ```
 
-What is interesting is that these two numbers are not only very close to each other, but their floating-point representation in binary is almost the same. Only the last two digits are different: these two numbers are actually following each other! It means that there is no floating-point numbers between these two numbers, we have “run out of precision”.
+What is interesting is that these two numbers are not only very close to each other, but their floating-point representation in binary is almost the same. 
+Only the last two digits are different: these two numbers are actually following each other! It means that there is no floating-point numbers between these two numbers, we have “run out of precision”.
 
-Since improve is computing the average of guess and (/ x guess), the computer will add the two numbers and divide by two, but since there is no way to represent a number of floating point between these two numbers, the result will be rounded to the closest floating-point number, which is guess, thus explaining why (improve guess x) can’t produce a better result.
+Since improve is computing the average of guess and (/ x guess), the computer will add the two numbers and divide by two, 
+but since there is no way to represent a number of floating point between these two numbers, 
+the result will be rounded to the closest floating-point number, which is guess, thus explaining why (improve guess x) can’t produce a better result.
 
 ---
 

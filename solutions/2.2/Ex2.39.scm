@@ -7,3 +7,4 @@
 (define (reverse sequence)
   (fold-left
    (lambda (x y) (cons y x)) nil sequence))
+(reverse '(1 2 3 4 5))
