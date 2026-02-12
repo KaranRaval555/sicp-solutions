@@ -492,4 +492,3 @@
       (else (build (first pora)
                      (align (second pora)))))))
 (align '(((a) (b)) c))
-
