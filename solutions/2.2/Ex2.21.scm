@@ -2,9 +2,9 @@
 
 (define (square x) (* x x))
 
-(define (map proc items)
+(define (map fn items)
         (if (null? items) nil
-          (cons (proc (car items)) (map proc (cdr items)))))
+          (cons (fn (car items)) (map fn (cdr items)))))
 
 (define (square-list items)
   (if (null? items)
